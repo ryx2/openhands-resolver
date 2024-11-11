@@ -49,6 +49,11 @@ jobs:
        (github.event.comment.author_association == 'OWNER' || github.event.comment.author_association == 'COLLABORATOR' || github.event.comment.author_association == 'MEMBER'))
     runs-on: ubuntu-latest
     steps:
+      # Add ripgrep installation step
+      - name: Install ripgrep
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ripgrep
       # First checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v4
