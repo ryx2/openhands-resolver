@@ -55,6 +55,14 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y ripgrep
           sudo apt-get install -y tree
+      # Install useful CLI tools for code analysis and manipulation
+      - name: Install CLI tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            ripgrep \
+            tree \
+            git-delta
       # First checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v4
