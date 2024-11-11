@@ -34,11 +34,19 @@ jobs:
     if: github.event_name == 'workflow_call' || github.event.label.name == 'fix-me' || github.event.label.name == 'fix-me-experimental'
     runs-on: ubuntu-latest
     steps:
-      - name: Install Bun
-        uses: oven-sh/setup-bun@v1
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v1
+      - name: Cache Bun dependencies
+        uses: actions/cache@v4
         with:
-          bun-version: latest
-          
+          path: |
+            ~/.bun/install/cache
+            node_modules
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-
+      - run: bun install
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
